@@ -29,7 +29,7 @@
        (zipmap (range 1 (+ (count secret-word) 1)))))
 
 (defn find-letter [letter secret-word]
-  "Check if there is (are) a (some) letter(s) in col"
+  "Check if there is (are) a (some) letter(s) contained in secret-word"
   (let [col (string->map secret-word)]
     (reduce (fn [acc curr]
               (if (= (get curr 1) letter)
