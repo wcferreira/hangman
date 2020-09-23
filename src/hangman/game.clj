@@ -28,13 +28,14 @@
        (mapv str)
        (zipmap (range 1 (+ (count secret-word) 1)))))
 
-(defn find-letter [letter col]
+(defn find-letter [letter secret-word]
   "Check if there is (are) a (some) letter(s) in col"
-  (reduce (fn [acc curr]
-            (if (= (get curr 1) letter)
-              (let [[k v] curr]
-                (assoc acc k v))
-              acc)) {} (vec col)))
+  (let [col (string->map secret-word)]
+    (reduce (fn [acc curr]
+              (if (= (get curr 1) letter)
+                (let [[k v] curr]
+                  (assoc acc k v))
+                acc)) {} (vec col))))
 
 (defn play
   "Entry point"
