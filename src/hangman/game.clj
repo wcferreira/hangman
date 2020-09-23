@@ -21,11 +21,20 @@
   (print "Guess a letter: ")
   (read-line))
 
+(defn find-letter [letter col]
+  "Check if there is (are) a (some) letter(s) in col"
+  (reduce (fn [acc curr]
+            (if (= (get curr 1) letter)
+              (let [[k v] curr]
+                (assoc acc k v))
+              acc)) {} (vec col)))
+
 (defn play
   "Entry point"
   []
   (display-welcome-message)
   (initialize-correct-guesses secret)
   (ask-player-for-a-guess))
+
 
 
