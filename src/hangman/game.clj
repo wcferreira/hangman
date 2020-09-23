@@ -21,6 +21,13 @@
   (print "Guess a letter: ")
   (read-line))
 
+(defn string->map
+  "Convert a string into a map"
+  [secret-word]
+  (->> (seq secret-word)
+       (mapv str)
+       (zipmap (range 1 (+ (count secret-word) 1)))))
+
 (defn find-letter [letter col]
   "Check if there is (are) a (some) letter(s) in col"
   (reduce (fn [acc curr]
