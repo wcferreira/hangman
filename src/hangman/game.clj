@@ -15,8 +15,17 @@
   [secret-word]
   (reset! correct_chars (into [] (repeat (count secret-word) "_"))))
 
+(defn ask-player-for-a-guess
+  "Wait player to guess a letter"
+  []
+  (print "Guess a letter: ")
+  (read-line))
+
 (defn play
   "Entry point"
   []
   (display-welcome-message)
-  (initialize-correct-guesses secret))
+  (initialize-correct-guesses secret)
+  (ask-player-for-a-guess))
+
+
