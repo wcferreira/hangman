@@ -18,7 +18,6 @@
 (defn ask-player-for-a-guess
   "Wait player to guess a letter"
   []
-  (print "Guess a letter: ")
   (read-line))
 
 (defn string->map
@@ -37,12 +36,29 @@
                   (assoc acc k v))
                 acc)) {} (vec col))))
 
+(defn update-correct-guesses
+  "Update collection that holds the correct guesses"
+  [guesses]
+  (loop [cnt (count correct_chars) col guesses]
+    (when-not (empty? col)
+      (let [[key value] (first col)]
+        (swap! correct_chars assoc key value))
+      (recur (dec cnt)
+             (rest col)))))
+
 (defn play
   "Entry point"
   []
   (display-welcome-message)
   (initialize-correct-guesses secret)
-  (ask-player-for-a-guess))
+  (println @correct_chars)
+  (println "Guess a letter: ")
+  (let [guess (ask-player-for-a-guess)]
+    (println (find-letter guess secret))))
+
+
+
+
 
 
 
