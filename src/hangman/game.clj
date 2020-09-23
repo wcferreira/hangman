@@ -1,7 +1,7 @@
 (ns hangman.game)
 
 (def secret "clojure")
-(def correct_chars (atom (into [] (repeat (count secret) "_"))))
+(def correct_chars (atom []))
 
 (defn display-welcome-message
   []
@@ -9,8 +9,11 @@
   (println "====== Welcome to the Hangman Game ======")
   (println "========================================="))
 
+(defn initialize-correct-guesses
+  [secret-word]
+  (reset! correct_chars (into [] (repeat (count secret-word) "_"))))
+
 (defn play
   []
   (display-welcome-message)
-  (println @correct_chars)
-  )
+  (initialize-correct-guesses secret))
