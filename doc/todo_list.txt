@@ -1,0 +1,17 @@
+Tasks
+- Welcome message
+- Read secret words from file
+- Create a function to random choose a word from the file (load secret word)
+- Initialize atom with the number of chars from the word obtained from the file
+- Ask user for a guess (read input)
+- Convert char guessed to upper or lower case and use trim to remove spaces
+- Create a vector with the correct character guessed by the player
+- Check if guessed char is contained in secret word
+- Update the atom with the correct character (register correct guess)
+- Loop for a limited number of times
+- Check if the player guessed all the words correctly and finish the game
+- Check if the player used all your tries and finish the game
+- Display a message "You Won" / "You Lose"
+- Display hangman for each error
+
+
