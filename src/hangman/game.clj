@@ -26,7 +26,7 @@
   [secret-word]
   (->> (seq secret-word)
        (mapv str)
-       (zipmap (range 1 (+ (count secret-word) 1)))))
+       (zipmap (range (count secret-word)))))
 
 (defn find-letter
   "Check if there is (are) a (some) letter(s) contained in secret-word"
@@ -41,7 +41,7 @@
 (defn update-correct-guesses
   "Update collection that holds the correct guesses"
   [guesses]
-  (loop [cnt (count correct_guesses) col guesses]
+  (loop [cnt (count @correct_guesses) col guesses]
     (when-not (empty? col)
       (let [[key value] (first col)]
         (swap! correct_guesses assoc key value))
