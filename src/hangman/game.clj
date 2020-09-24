@@ -48,7 +48,7 @@
       (recur (dec cnt)
              (rest col)))))
 
-(defn is-word-already-guesses?
+(defn is-word-already-guessed?
   "Check if the secret word was already guessed"
   []
   (not= (every? #(= % "_") @correct_guesses)))
