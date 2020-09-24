@@ -2,6 +2,7 @@
 
 (def secret "clojure")
 (def correct_guesses (atom []))
+(def max-number-attempts 7)
 
 (defn display-welcome-message
   "Displays game welcome message"
@@ -27,8 +28,9 @@
        (mapv str)
        (zipmap (range 1 (+ (count secret-word) 1)))))
 
-(defn find-letter [letter secret-word]
+(defn find-letter
   "Check if there is (are) a (some) letter(s) contained in secret-word"
+  [letter secret-word]
   (let [col (string->map secret-word)]
     (reduce (fn [acc curr]
               (if (= (get curr 1) letter)
@@ -46,6 +48,11 @@
       (recur (dec cnt)
              (rest col)))))
 
+(defn is-word-already-guesses?
+  "Check if the secret word was already guessed"
+  []
+  (not= (every? #(= % "_") @correct_guesses)))
+
 (defn play
   "Entry point"
   []
@@ -55,10 +62,4 @@
   (println "Guess a letter: ")
   (let [guess (ask-player-for-a-guess)]
     (println (find-letter guess secret))))
-
-
-
-
-
-
 
