@@ -51,7 +51,7 @@
 (defn is-word-already-guessed?
   "Check if the secret word was already guessed"
   []
-  (not= (every? #(= % "_") @correct_guesses)))
+  (nil? (some #(= % "_") @correct_guesses)))
 
 (defn play
   "Entry point"
