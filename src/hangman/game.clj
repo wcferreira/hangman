@@ -53,6 +53,12 @@
   []
   (nil? (some #(= % "_") @correct_guesses)))
 
+(defn get-error
+  [col]
+  (if (empty? col)
+    1
+    0))
+
 (defn play
   "Entry point"
   [secret-word]
@@ -65,10 +71,11 @@
       (do
         (println "Guess a letter:")
         (let [guess (ask-player-for-a-guess)
-              corrects (find-letter guess secret-word)]
+              corrects (find-letter guess secret-word)
+              add-error (get-error corrects)
+              number-of-errors (+ add-error errors)]
+          (println "ERROR: " number-of-errors)
           (update-correct-guesses corrects)
           (recur (dec attempts)
-                 (if (empty? corrects)
-                   (inc errors)
-                   errors)))))))
+                 (+ add-error errors)))))))
 
