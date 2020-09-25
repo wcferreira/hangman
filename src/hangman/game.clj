@@ -1,8 +1,13 @@
 (ns hangman.game)
 
-(def secret "clojure")
 (def correct_guesses (atom []))
 (def max-number-attempts 7)
+
+(defn get-secret-word
+  []
+  (let [string (slurp "resources/fruits.txt")
+        fruits (clojure.string/split string #"\n")]
+    (get fruits (rand-int (count fruits)))))
 
 (defn display-welcome-message
   "Displays game welcome message"
@@ -182,23 +187,26 @@
 
 (defn play
   "Entry point"
-  [secret-word]
-  (display-welcome-message)
-  (initialize-correct-guesses secret-word)
-  (loop [attempts max-number-attempts errors 0]
-    (println @correct_guesses)
-    (draw-hangman errors)
-    (let [status (is-word-already-guessed?)]
-    (if (or (= attempts 0) status)
-      (do
-        (display-final-message status secret-word)
-        errors)
-      (do
-        (println "Guess a letter:")
-        (let [guess (ask-player-for-a-guess)
-              corrects (find-letter guess secret-word)
-              add-error (get-error corrects)]
-          (update-correct-guesses corrects)
-          (recur (dec attempts)
-                 (+ add-error errors))))))))
+  []
+  (let [secret-word (get-secret-word)]
+    (display-welcome-message)
+    (initialize-correct-guesses secret-word)
+    (loop [attempts max-number-attempts errors 0]
+      (println @correct_guesses)
+      (draw-hangman errors)
+      (let [status (is-word-already-guessed?)]
+      (if (or (= attempts 0) status)
+        (do
+          (display-final-message status secret-word)
+          errors)
+        (do
+          (println "Guess a letter:")
+          (let [guess (ask-player-for-a-guess)
+                corrects (find-letter guess secret-word)
+                add-error (get-error corrects)]
+            (update-correct-guesses corrects)
+            (recur (dec attempts)
+                   (+ add-error errors)))))))))
+
+
 
