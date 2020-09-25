@@ -199,7 +199,6 @@
               corrects (find-letter guess secret-word)
               add-error (get-error corrects)
               number-of-errors (+ add-error errors)]
-          (println "number of errors: " number-of-errors)
           (update-correct-guesses corrects)
           (recur (dec attempts)
                  (+ add-error errors))))))))
