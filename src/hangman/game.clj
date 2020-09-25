@@ -55,11 +55,20 @@
 
 (defn play
   "Entry point"
-  []
+  [secret-word]
   (display-welcome-message)
-  (initialize-correct-guesses secret)
-  (println @correct_guesses)
-  (println "Guess a letter: ")
-  (let [guess (ask-player-for-a-guess)]
-    (println (find-letter guess secret))))
+  (initialize-correct-guesses secret-word)
+  (loop [attempts max-number-attempts errors 0]
+    (println @correct_guesses)
+    (if (or (= attempts 0) (is-word-already-guessed?))
+      (println "errors:" errors)
+      (do
+        (println "Guess a letter:")
+        (let [guess (ask-player-for-a-guess)
+              corrects (find-letter guess secret-word)]
+          (update-correct-guesses corrects)
+          (recur (dec attempts)
+                 (if (empty? corrects)
+                   (inc errors)
+                   errors)))))))
 
