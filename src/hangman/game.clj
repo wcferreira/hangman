@@ -197,8 +197,7 @@
         (println "Guess a letter:")
         (let [guess (ask-player-for-a-guess)
               corrects (find-letter guess secret-word)
-              add-error (get-error corrects)
-              number-of-errors (+ add-error errors)]
+              add-error (get-error corrects)]
           (update-correct-guesses corrects)
           (recur (dec attempts)
                  (+ add-error errors))))))))
