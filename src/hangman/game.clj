@@ -5,10 +5,14 @@
 (def max-number-attempts 7)
 
 (defn get-secret-word
+  [col]
+  (get fruits (rand-int (count col))))
+
+(defn read-words-from-file
   []
   (let [string (slurp "resources/fruits.txt")
         fruits (clojure.string/split string #"\n")]
-    (get fruits (rand-int (count fruits)))))
+    fruits))
 
 (defn initialize-correct-guesses
   "Initialize with _ (underscore) a vector that will hold the correct guesses"
@@ -60,7 +64,8 @@
 (defn play
   "Entry point"
   []
-  (let [secret-word (get-secret-word)]
+  (let [words (read-words-from-file)
+        secret-word (get-secret-word words)]
     (d/display-welcome-message)
     (initialize-correct-guesses secret-word)
     (loop [attempts max-number-attempts errors 0]
