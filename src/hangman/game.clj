@@ -10,13 +10,6 @@
         fruits (clojure.string/split string #"\n")]
     (get fruits (rand-int (count fruits)))))
 
-(defn display-welcome-message
-  "Displays game welcome message"
-  []
-  (println "=========================================")
-  (println "====== Welcome to the Hangman Game ======")
-  (println "========================================="))
-
 (defn initialize-correct-guesses
   "Initialize with _ (underscore) a vector that will hold the correct guesses"
   [secret-word]
@@ -68,7 +61,7 @@
   "Entry point"
   []
   (let [secret-word (get-secret-word)]
-    (display-welcome-message)
+    (d/display-welcome-message)
     (initialize-correct-guesses secret-word)
     (loop [attempts max-number-attempts errors 0]
       (println @correct_guesses)

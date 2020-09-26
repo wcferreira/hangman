@@ -1,5 +1,12 @@
 (ns hangman.drawings)
 
+(defn display-welcome-message
+  "Displays game welcome message"
+  []
+  (println "=========================================")
+  (println "====== Welcome to the Hangman Game ======")
+  (println "========================================="))
+
 (defn draw-header
   ""
   []
