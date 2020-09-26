@@ -6,7 +6,7 @@
 
 (defn get-secret-word
   [col]
-  (get fruits (rand-int (count col))))
+  (get col (rand-int (count col))))
 
 (defn read-words-from-file
   []
