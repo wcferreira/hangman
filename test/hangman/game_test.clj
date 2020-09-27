@@ -31,4 +31,11 @@
           secret-word "peach"]
       (is (nil? (hg/initialize-correct-guesses secret-word the-vec))))))
 
+(deftest test-string-to-map
+  (testing "It should return a map when a string is passed in"
+    (is (= (hg/string->map "apple") {0 "a" 1 "p" 2 "p" 3 "l" 4 "e"})))
+  (testing "It should return nil when a parameter different of string is passed in"
+    (is (nil? (hg/string->map 42))))
+    (is (nil? (hg/string->map [])))
+    (is (nil? (hg/string->map :banana))))
 
