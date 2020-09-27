@@ -21,7 +21,7 @@
 (defn initialize-correct-guesses
   "Initialize with _ (underscore) a vector that will hold the correct guesses"
   [secret-word the-atom]
-  (when (atom? the-atom)
+  (when (and (string? secret-word) (atom? the-atom))
     (reset! the-atom (into [] (repeat (count secret-word) "_")))))
 
 (defn ask-player-for-a-guess
