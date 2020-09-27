@@ -14,10 +14,15 @@
         fruits (clojure.string/split string #"\n")]
     fruits))
 
+(defn atom?
+  [the-atom]
+  (instance? clojure.lang.Atom the-atom))
+
 (defn initialize-correct-guesses
   "Initialize with _ (underscore) a vector that will hold the correct guesses"
-  [secret-word]
-  (reset! correct_guesses (into [] (repeat (count secret-word) "_"))))
+  [secret-word the-atom]
+  (when (atom? the-atom)
+    (reset! the-atom (into [] (repeat (count secret-word) "_")))))
 
 (defn ask-player-for-a-guess
   "Wait player to guess a letter"
