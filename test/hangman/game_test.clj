@@ -39,3 +39,32 @@
     (is (nil? (hg/string->map [])))
     (is (nil? (hg/string->map :banana))))
 
+
+(deftest test-update-correct-guesses
+  (let [secret-word "avocado"
+        the-atom (atom [])]
+    (hg/initialize-correct-guesses secret-word the-atom)
+    (testing "It should return an atom with the (a) letter (s) initialized in its correct position"
+      (is (= (hg/update-correct-guesses {} the-atom) ["_" "_" "_" "_" "_" "_" "_"]))
+
+      (let [guesses {0 "a" 4 "a"}]
+        (is (= (hg/update-correct-guesses guesses the-atom) ["a" "_" "_" "_" "a" "_" "_"])))
+
+      (let [guesses {2 "o" 6 "o"}]
+        (is (=  (hg/update-correct-guesses guesses the-atom) ["a" "_" "o" "_" "a" "_" "o"])))
+
+      (let [guesses {1 "v"}]
+        (is (= (hg/update-correct-guesses guesses the-atom) ["a" "v" "o" "_" "a" "_" "o"])))
+
+      (let [guesses {3 "c"}]
+        (is (= (hg/update-correct-guesses guesses the-atom) ["a" "v" "o" "c" "a" "_" "o"])))
+
+      (let [guesses {5 "d"}]
+        (is (= (hg/update-correct-guesses guesses the-atom) ["a" "v" "o" "c" "a" "d" "o"]))))
+
+    (testing "It should return nil if the parameters passed in are a hash-map and a vector respectively"
+      (is (nil? (hg/update-correct-guesses {} []))))
+
+    (testing "It should return nil if the parameters passed in are a string and a hash-map"
+      (is (nil? (hg/update-correct-guesses "foo" {}))))))
+
