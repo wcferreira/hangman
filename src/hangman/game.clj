@@ -73,16 +73,12 @@
   (if (empty? col) 1 0))
 
 (defn play
-  "Entry point"
-  []
-  (let [words (read-words-from-file)
-        secret-word (get-secret-word words)]
-    (d/display-welcome-message)
-    (initialize-correct-guesses secret-word correct_guesses)
-    (loop [attempts max-number-attempts errors 0]
-      (println @correct_guesses)
-      (d/draw-hangman errors)
-      (let [status (is-word-already-guessed? correct_guesses)]
+  "Start the game"
+  [secret-word the-atom]
+  (loop [attempts max-number-attempts errors 0]
+    (println @the-atom)
+    (d/draw-hangman errors)
+    (let [status (is-word-already-guessed? the-atom)]
       (if (or (= attempts 0) status)
         (do
           (d/display-final-message status secret-word)
@@ -92,9 +88,8 @@
           (let [guess (ask-player-for-a-guess)
                 corrects (find-letter guess secret-word)
                 add-error (get-error corrects)]
-            (update-correct-guesses corrects correct_guesses)
+            (update-correct-guesses corrects the-atom)
             (recur (dec attempts)
-                   (+ add-error errors)))))))))
-
+                   (+ add-error errors))))))))
 
 
