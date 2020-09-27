@@ -82,7 +82,7 @@
     (loop [attempts max-number-attempts errors 0]
       (println @correct_guesses)
       (d/draw-hangman errors)
-      (let [status (is-word-already-guessed?)]
+      (let [status (is-word-already-guessed? correct_guesses)]
       (if (or (= attempts 0) status)
         (do
           (d/display-final-message status secret-word)
