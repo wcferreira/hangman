@@ -32,9 +32,10 @@
 (defn string->map
   "Convert a string into a map"
   [secret-word]
-  (->> (seq secret-word)
-       (mapv str)
-       (zipmap (range (count secret-word)))))
+  (when (string? secret-word)
+    (->> (seq secret-word)
+         (mapv str)
+         (zipmap (range (count secret-word))))))
 
 (defn find-letter
   "Check if there is (are) a (some) letter(s) contained in secret-word"
