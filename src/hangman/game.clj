@@ -40,12 +40,13 @@
 (defn find-letter
   "Check if there is (are) a (some) letter(s) contained in secret-word"
   [letter secret-word]
-  (let [col (string->map secret-word)]
-    (reduce (fn [acc curr]
-              (if (= (get curr 1) letter)
-                (let [[k v] curr]
-                  (assoc acc k v))
-                acc)) {} (vec col))))
+  (when (every? string? [letter secret-word])
+    (let [col (string->map secret-word)]
+      (reduce (fn [acc curr]
+                (if (= (get curr 1) letter)
+                  (let [[k v] curr]
+                    (assoc acc k v))
+                  acc)) {} (vec col)))))
 
 (defn update-correct-guesses
   "Update collection that holds the correct guesses"
