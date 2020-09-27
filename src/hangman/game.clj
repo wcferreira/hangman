@@ -63,8 +63,9 @@
 
 (defn is-word-already-guessed?
   "Check if the secret word was already guessed"
-  []
-  (nil? (some #(= % "_") @correct_guesses)))
+  [the-atom]
+  (when (and (atom? the-atom) (> (count @the-atom) 0))
+    (nil? (some #(= % "_") @the-atom))))
 
 (defn get-error
   "Check collection that holds number of correct guesses. If empty returns 1 0 otherwise"
@@ -91,7 +92,7 @@
           (let [guess (ask-player-for-a-guess)
                 corrects (find-letter guess secret-word)
                 add-error (get-error corrects)]
-            (update-correct-guesses corrects)
+            (update-correct-guesses corrects correct_guesses)
             (recur (dec attempts)
                    (+ add-error errors)))))))))
 
