@@ -50,12 +50,15 @@
 (defn update-correct-guesses
   "Update collection that holds the correct guesses"
   [guesses the-atom]
-  (loop [cnt (count @the-atom) col guesses]
-    (when-not (empty? col)
-      (let [[key value] (first col)]
-        (swap! the-atom assoc key value))
-      (recur (dec cnt)
-             (rest col)))))
+  (when (and (map? guesses) (atom? the-atom))
+    (loop [cnt (count @the-atom) col guesses]
+      (if (empty? col)
+        @the-atom
+        (do
+          (let [[key value] (first col)]
+            (swap! the-atom assoc key value))
+          (recur (dec cnt)
+                 (rest col)))))))
 
 (defn is-word-already-guessed?
   "Check if the secret word was already guessed"
@@ -73,7 +76,7 @@
   (let [words (read-words-from-file)
         secret-word (get-secret-word words)]
     (d/display-welcome-message)
-    (initialize-correct-guesses secret-word)
+    (initialize-correct-guesses secret-word correct_guesses)
     (loop [attempts max-number-attempts errors 0]
       (println @correct_guesses)
       (d/draw-hangman errors)
