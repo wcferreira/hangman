@@ -79,3 +79,35 @@
     (testing "It should return nil if the parameters passed in are a string and a hash-map"
       (is (nil? (hg/update-correct-guesses "foo" {}))))))
 
+(deftest test-is-word-already-guessed
+  (let [secret-word "melon"
+        the-atom (atom [])]
+    (hg/initialize-correct-guesses secret-word the-atom)
+    (testing "It should return false if not all the letters were guessed correctly"
+      (is (false? (hg/is-word-already-guessed? the-atom)))
+
+      (hg/update-correct-guesses {0 "m"} the-atom)
+      (is (false? (hg/is-word-already-guessed? the-atom)))
+
+      (hg/update-correct-guesses {1 "e"} the-atom)
+      (is (false? (hg/is-word-already-guessed? the-atom)))
+
+      (hg/update-correct-guesses {2 "l"} the-atom)
+      (is (false? (hg/is-word-already-guessed? the-atom)))
+
+      (hg/update-correct-guesses {3 "o"} the-atom)
+      (is (false? (hg/is-word-already-guessed? the-atom))))
+
+    (testing "It should return true when all the letters were guessed correctly"
+      (hg/update-correct-guesses {4 "n"} the-atom)
+      (is (true? (hg/is-word-already-guessed? the-atom))))
+
+    (testing "It should return nil when an empty atom is passed in"
+      (let [a-tom (atom [])]
+        (is (nil? (hg/is-word-already-guessed? a-tom)))))
+
+    (testing "It should return nil when a non atom is passed in"
+      (is (nil? (hg/is-word-already-guessed? [])))
+      (is (nil? (hg/is-word-already-guessed? "atom"))))))
+
+
