@@ -39,6 +39,17 @@
     (is (nil? (hg/string->map [])))
     (is (nil? (hg/string->map :banana))))
 
+(deftest test-find-letter
+  (let [secret-word "guava"]
+    (testing "When passed in a letter to be found. It returns a hash-map with the position of all the letters found"
+      (is (= (hg/find-letter "a" secret-word) {2 "a" 4 "a"}))
+      (is (= (hg/find-letter "u" secret-word) {1 "u"}))
+      (is (= (hg/find-letter "g" secret-word) {0 "g"}))
+      (is (= (hg/find-letter "v" secret-word) {3 "v"})))
+    (testing "When passed in parameters different from string, returns nil"
+      (is (nil? (hg/find-letter 1 secret-word)))
+      (is (nil? (hg/find-letter "a" 3))))
+      (is (nil? (hg/find-letter 4 5)))))
 
 (deftest test-update-correct-guesses
   (let [secret-word "avocado"
