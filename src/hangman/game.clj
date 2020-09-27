@@ -86,7 +86,7 @@
       (if (or (= attempts 0) status)
         (do
           (d/display-final-message status secret-word)
-          errors)
+          status)
         (do
           (println "Guess a letter:")
           (let [guess (ask-player-for-a-guess)
