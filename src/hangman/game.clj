@@ -1,5 +1,7 @@
 (ns hangman.game
-  (:require [hangman.drawings :as d]))
+  (:require [hangman.drawings :as d]
+            [clojure.string :as s]
+            [clojure.string :as str]))
 
 (def correct_guesses (atom []))
 (def max-number-attempts 7)
@@ -27,7 +29,8 @@
 (defn ask-player-for-a-guess
   "Wait player to guess a letter"
   []
-  (read-line))
+  (let [guess (read-line)]
+    (str/lower-case guess)))
 
 (defn string->map
   "Convert a string into a map"
