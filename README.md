@@ -1,32 +1,10 @@
 # hangman
 
-FIXME: description
-
-## Installation
-
-Download from http://example.com/FIXME.
+A game developed in clojure as way to learn the language.
 
 ## Usage
-
-FIXME: explanation
-
-    $ java -jar hangman-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+    $ lein run
+    $ java -jar hangman-0.1.0-standalone.jar
 
 ## License
 
