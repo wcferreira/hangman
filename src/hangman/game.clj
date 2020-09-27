@@ -49,11 +49,11 @@
 
 (defn update-correct-guesses
   "Update collection that holds the correct guesses"
-  [guesses]
-  (loop [cnt (count @correct_guesses) col guesses]
+  [guesses the-atom]
+  (loop [cnt (count @the-atom) col guesses]
     (when-not (empty? col)
       (let [[key value] (first col)]
-        (swap! correct_guesses assoc key value))
+        (swap! the-atom assoc key value))
       (recur (dec cnt)
              (rest col)))))
 
