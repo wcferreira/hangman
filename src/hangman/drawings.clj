@@ -3,9 +3,9 @@
 (defn display-welcome-message
   "Displays game welcome message"
   []
-  (println "=========================================")
-  (println "====== Welcome to the Hangman Game ======")
-  (println "========================================="))
+  (apply str ["=========================================\n"
+              "====== Welcome to the Hangman Game ======\n"
+              "=========================================\n"]))
 
 (defn draw-header
   ""
