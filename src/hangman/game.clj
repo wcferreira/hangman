@@ -1,7 +1,8 @@
 (ns hangman.game
   (:require [hangman.drawings :as d]
             [clojure.string :as s]
-            [clojure.string :as str]))
+            [clojure.string :as str])
+  (:import (java.io FileNotFoundException)))
 
 (def correct-guesses (atom []))
 (def max-number-attempts 7)
@@ -10,11 +11,15 @@
   [col]
   (get col (rand-int (count col))))
 
-(defn read-words-from-file
-  []
-  (let [string (slurp "resources/fruits.txt")
-        fruits (clojure.string/split string #"\n")]
-    fruits))
+(defn read-file
+  [path]
+   (try
+     (slurp path)
+     (catch FileNotFoundException e (println "Invalid path"))))
+
+(defn string->vector
+  [data]
+  (clojure.string/split data #"\n"))
 
 (defn atom?
   [the-atom]

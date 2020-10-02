@@ -7,7 +7,8 @@
 (defn -main
   "Entry point"
   []
-  (let [words (hg/read-words-from-file)
+  (let [string (hg/read-file "resources/fruits.txt")
+        words (hg/string->vector string)
         word (hg/get-secret-word words)
         secret-word (s/lower-case word)]
   (hd/display-welcome-message)
