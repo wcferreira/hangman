@@ -100,9 +100,9 @@
   (println "        '-------'       "))
 
 (defn draw-loser-message
-  [secre-word]
+  [secret-word]
   (println "Game Over!")
-  (println "The secret word was:" secre-word)
+  (println "The secret word was:" secret-word)
   (println "    _______________       ")
   (println "   /               \\\\      ")
   (println "  /                 \\\\     ")
