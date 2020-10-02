@@ -7,17 +7,6 @@
               "====== Welcome to the Hangman Game ======\n"
               "=========================================\n"]))
 
-(defn draw-header
-  ""
-  []
-  (apply str ["  _______     \n"
-              " |/      |    \n"]))
-
-(defn draw-footer
-  []
-  (apply str [" |            \n"
-              "_|___         \n"]))
-
 (defn draw-head
   []
   (apply str ["  _______     \n"
