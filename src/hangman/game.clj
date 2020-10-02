@@ -33,9 +33,8 @@
 
 (defn ask-player-for-a-guess
   "Wait player to guess a letter"
-  []
-  (let [guess (read-line)]
-    (str/lower-case guess)))
+  [guess]
+  (str/lower-case guess))
 
 (defn string->map
   "Convert a string into a map"
@@ -93,7 +92,7 @@
           status)
         (do
           (println "Guess a letter:")
-          (let [guess (ask-player-for-a-guess)
+          (let [guess (ask-player-for-a-guess (read-line))
                 corrects (find-letter guess secret-word)
                 add-error (get-error corrects)]
             (update-correct-guesses corrects the-atom)
