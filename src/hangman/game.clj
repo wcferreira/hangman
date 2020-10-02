@@ -84,11 +84,11 @@
   [secret-word the-atom]
   (loop [attempts max-number-attempts errors 0]
     (println @the-atom)
-    (d/draw-hangman errors)
+    (println (d/draw-hangman errors))
     (let [status (is-word-already-guessed? the-atom)]
       (if (or (= attempts 0) status)
         (do
-          (d/display-final-message status secret-word)
+          (println (d/display-final-message status secret-word))
           status)
         (do
           (println "Guess a letter:")
