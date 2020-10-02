@@ -10,63 +10,92 @@
 (defn draw-header
   ""
   []
-  (println "  _______     ")
-  (println " |/      |    "))
-
-(defn draw-head
-  []
-  (println " |      (_)   ")
-  (println " |            ")
-  (println " |            ")
-  (println " |            "))
-
-(defn draw-right-arm
-  []
-  (println " |      (_)   ")
-  (println " |      \\    ")
-  (println " |            ")
-  (println " |            "))
-
-(defn draw-chest
-  []
-  (println " |      (_)   ")
-  (println " |      \\|   ")
-  (println " |            ")
-  (println " |            "))
-
-(defn draw-left-arm
-  []
-  (println " |      (_)   ")
-  (println " |      \\|/  ")
-  (println " |            ")
-  (println " |            "))
-
-(defn draw-torax
-  []
-  (println " |      (_)   ")
-  (println " |      \\|/  ")
-  (println " |       |    ")
-  (println " |            "))
-
-(defn draw-right-leg
-  []
-  (println " |      (_)   ")
-  (println " |      \\|/  ")
-  (println " |       |    ")
-  (println " |      /     "))
-
-(defn draw-left-leg
-  []
-  (println " |      (_)   ")
-  (println " |      \\|/  ")
-  (println " |       |    ")
-  (println " |      / \\  "))
+  (apply str ["  _______     \n"
+              " |/      |    \n"]))
 
 (defn draw-footer
   []
-  (println " |            ")
-  (println "_|___         ")
-  (println))
+  (apply str [" |            \n"
+              "_|___         \n"]))
+
+(defn draw-head
+  []
+  (apply str ["  _______     \n"
+              " |/      |    \n"
+              " |      (_)   \n"
+              " |            \n"
+              " |            \n"
+              " |            \n"
+              " |            \n"
+              "_|___         \n"]))
+
+(defn draw-right-arm
+  []
+  (apply str ["  _______     \n"
+              " |/      |    \n"
+              " |      (_)   \n"
+              " |      \\    \n"
+              " |            \n"
+              " |            \n"
+              " |            \n"
+              "_|___         \n"]))
+
+(defn draw-chest
+  []
+  (apply str ["  _______     \n"
+              " |/      |    \n"
+              " |      (_)   \n"
+              " |      \\|   \n"
+              " |            \n"
+              " |            \n"
+              " |            \n"
+              "_|___         \n"]))
+
+
+(defn draw-left-arm
+  []
+  (apply str ["  _______     \n"
+              " |/      |    \n"
+              " |      (_)   \n"
+              " |      \\|/  \n"
+              " |            \n"
+              " |            \n"
+              " |            \n"
+              "_|___         \n"]))
+
+(defn draw-torax
+  []
+  (apply str ["  _______     \n"
+              " |/      |    \n"
+              " |      (_)   \n"
+              " |      \\|/  \n"
+              " |       |    \n"
+              " |            \n"
+              " |            \n"
+              "_|___         \n"]))
+
+(defn draw-right-leg
+  []
+  (apply str ["  _______     \n"
+              " |/      |    \n"
+              " |      (_)   \n"
+              " |      \\|/  \n"
+              " |       |    \n"
+              " |      /     \n"
+              " |            \n"
+              "_|___         \n"]))
+
+(defn draw-left-leg
+  []
+  (apply str ["  _______     \n"
+              " |/      |    \n"
+              " |      (_)   \n"
+              " |      \\|/  \n"
+              " |       |    \n"
+              " |      / \\  \n"
+              " |            \n"
+              "_|___         \n"]))
+
 
 (def error-types {1 (fn [] (draw-head))
                   2 (fn [] (draw-right-arm))
@@ -79,46 +108,43 @@
 (defn draw-hangman
   "Draw hangman according to the number of errors."
   [errors]
-  (println "==> " errors)
   (when (and (> errors 0) (<= errors (count error-types)))
-    (draw-header)
-    ((get (find error-types errors) 1))
-    (draw-footer)))
+    ((get (find error-types errors) 1))))
 
 (defn draw-winner-message
   [_]
-  (println "Congratulations, you won!")
-  (println "       ___________      ")
-  (println "      '._==_==_=_.'     ")
-  (println "      .-\\\\:      /-.  ")
-  (println "     | (|:.     |) |    ")
-  (println "      '-|:.     |-'     ")
-  (println "        \\\\::.    /    ")
-  (println "         '::. .'        ")
-  (println "           ) (          ")
-  (println "         _.' '._        ")
-  (println "        '-------'       "))
+  (apply str ["Congratulations, you won!\n"
+              "       ___________      \n"
+              "      '._==_==_=_.'     \n"
+              "      .-\\\\:      /-.  \n"
+              "     | (|:.     |) |    \n"
+              "      '-|:.     |-'     \n"
+              "        \\\\::.    /    \n"
+              "         '::. .'        \n"
+              "           ) (          \n"
+              "         _.' '._        \n"
+              "        '-------'       \n"]))
 
 (defn draw-loser-message
   [secret-word]
-  (println "Game Over!")
-  (println "The secret word was:" secret-word)
-  (println "    _______________       ")
-  (println "   /               \\\\      ")
-  (println "  /                 \\\\     ")
-  (println "//                   \\/\\  ")
-  (println "\\|   XXXX     XXXX   | /  ")
-  (println " |   XXXX     XXXX   |/   ")
-  (println " |   XXX       XXX   |    ")
-  (println " |                   |    ")
-  (println " \\__      XXX      __/    ")
-  (println "   |\\     XXX     /|      ")
-  (println "   | |           | |      ")
-  (println "   | I I I I I I I |      ")
-  (println "   |  I I I I I I  |      ")
-  (println "   \\_             _/      ")
-  (println "     \\_         _/        ")
-  (println "       \\_______/          "))
+  (apply str ["Game Over!\n"
+              (str "The secret word was:" secret-word) "\n"
+              "    _______________        \n"
+              "   /               \\\\    \n"
+              "  /                 \\\\   \n"
+              "//                   \\/\\ \n"
+              "\\|   XXXX     XXXX   | /  \n"
+              " |   XXXX     XXXX   |/    \n"
+              " |   XXX       XXX   |     \n"
+              " |                   |     \n"
+              " \\__      XXX      __/    \n"
+              "   |\\     XXX     /|      \n"
+              "   | |           | |       \n"
+              "   | I I I I I I I |       \n"
+              "   |  I I I I I I  |       \n"
+              "   \\_             _/      \n"
+              "     \\_         _/        \n"
+              "       \\_______/          \n"]))
 
 (def final-message-type {false (fn [secret-word] (draw-loser-message secret-word))
                          true  (fn [secret-word] (draw-winner-message secret-word))})
