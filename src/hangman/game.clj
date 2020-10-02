@@ -3,7 +3,7 @@
             [clojure.string :as s]
             [clojure.string :as str]))
 
-(def correct_guesses (atom []))
+(def correct-guesses (atom []))
 (def max-number-attempts 7)
 
 (defn get-secret-word
