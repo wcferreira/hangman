@@ -12,5 +12,5 @@
         word (hg/get-secret-word words)
         secret-word (s/lower-case word)]
     (println (hd/display-welcome-message))
-    (hg/initialize-correct-guesses secret-word hg/correct-guesses)
+    (reset! hg/correct-guesses (hg/initialize-correct-guesses secret-word))
   (hg/play secret-word hg/correct-guesses)))
