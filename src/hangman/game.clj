@@ -70,9 +70,9 @@
 
 (defn is-word-already-guessed?
   "Check if the secret word was already guessed"
-  [the-atom]
-  (when (and (atom? the-atom) (> (count @the-atom) 0))
-    (nil? (some #(= % "_") @the-atom))))
+  [data]
+  {:pre [(> (count data) 0)]}
+  (nil? (some #(= % "_") data)))
 
 (defn get-error
   "Check collection that holds number of correct guesses. If empty returns 1 0 otherwise"
@@ -85,7 +85,7 @@
   (loop [attempts max-number-attempts errors 0]
     (println @the-atom)
     (println (d/draw-hangman errors))
-    (let [status (is-word-already-guessed? the-atom)]
+    (let [status (is-word-already-guessed? @the-atom)]
       (if (or (= attempts 0) status)
         (do
           (println (d/display-final-message status secret-word))
