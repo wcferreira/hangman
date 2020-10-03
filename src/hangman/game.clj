@@ -21,10 +21,6 @@
   [data]
   (clojure.string/split data #"\n"))
 
-(defn atom?
-  [the-atom]
-  (instance? clojure.lang.Atom the-atom))
-
 (defn initialize-correct-guesses
   "Initialize with _ (underscore) a vector that will hold the correct guesses"
   [secret-word]
