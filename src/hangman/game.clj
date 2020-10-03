@@ -9,7 +9,7 @@
 
 (defn get-secret-word
   [col]
-  (get col (rand-int (count col))))
+  (rand-nth col))
 
 (defn read-file
   [path]
