@@ -30,8 +30,8 @@
   {:pre [(string? secret-word)]}
   (into [] (repeat (count secret-word) "_")))
 
-(defn ask-player-for-a-guess
-  "Wait player to guess a letter"
+(defn change-letter-case
+  "Change letter case"
   [guess]
   (str/lower-case guess))
 
@@ -86,7 +86,7 @@
           status)
         (do
           (println "Guess a letter:")
-          (let [guess (ask-player-for-a-guess (read-line))
+          (let [guess (change-letter-case (read-line))
                 corrects (find-letter guess secret-word)
                 add-error (get-error corrects)]
             (reset! the-atom (update-correct-guesses corrects @the-atom))
