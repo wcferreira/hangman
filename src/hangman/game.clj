@@ -91,6 +91,6 @@
                 corrects (find-letter guess secret-word)
                 add-error (get-error corrects)]
             (reset! the-atom (update-correct-guesses corrects @the-atom))
-            (recur (dec attempts)
+            (recur (- attempts add-error)
                    (+ add-error errors))))))))
 
