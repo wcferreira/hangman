@@ -57,16 +57,11 @@
 
 (defn update-correct-guesses
   "Update collection that holds the correct guesses"
-  [guesses the-atom]
-  (when (and (map? guesses) (atom? the-atom))
-    (loop [cnt (count @the-atom) col guesses]
-      (if (empty? col)
-        @the-atom
-        (do
-          (let [[key value] (first col)]
-            (swap! the-atom assoc key value))
-          (recur (dec cnt)
-                 (rest col)))))))
+  [guesses data]
+  {:pre [(map? guesses) (and (vector? data) (> (count data) 0))]}
+  (reduce (fn [acc curr]
+            (let [[k v] curr]
+              (assoc acc k v))) data (vec guesses)))
 
 (defn is-word-already-guessed?
   "Check if the secret word was already guessed"
@@ -95,7 +90,7 @@
           (let [guess (ask-player-for-a-guess (read-line))
                 corrects (find-letter guess secret-word)
                 add-error (get-error corrects)]
-            (update-correct-guesses corrects the-atom)
+            (reset! the-atom (update-correct-guesses corrects @the-atom))
             (recur (dec attempts)
                    (+ add-error errors))))))))
 
