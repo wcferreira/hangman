@@ -10,6 +10,7 @@
 (defn get-secret-word
   "Obtain one random word"
   [col]
+  {:pre [(> 0 (count col))]}
   (rand-nth col))
 
 (defn read-file
