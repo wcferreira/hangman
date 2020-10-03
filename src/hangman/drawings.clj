@@ -52,7 +52,7 @@
               " |            \n"
               "_|___         \n"]))
 
-(defn draw-torax
+(defn draw-thorax
   []
   (apply str ["  _______     \n"
               " |/      |    \n"
@@ -90,7 +90,7 @@
                   2 (fn [] (draw-right-arm))
                   3 (fn [] (draw-chest))
                   4 (fn [] (draw-left-arm))
-                  5 (fn [] (draw-torax))
+                  5 (fn [] (draw-thorax))
                   6 (fn [] (draw-right-leg))
                   7 (fn [] (draw-left-leg))})
 
