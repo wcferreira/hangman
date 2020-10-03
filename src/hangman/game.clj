@@ -27,9 +27,9 @@
 
 (defn initialize-correct-guesses
   "Initialize with _ (underscore) a vector that will hold the correct guesses"
-  [secret-word the-atom]
-  (when (and (string? secret-word) (atom? the-atom))
-    (reset! the-atom (into [] (repeat (count secret-word) "_")))))
+  [secret-word]
+  {:pre [(string? secret-word)]}
+  (into [] (repeat (count secret-word) "_")))
 
 (defn ask-player-for-a-guess
   "Wait player to guess a letter"
@@ -39,21 +39,21 @@
 (defn string->map
   "Convert a string into a map"
   [secret-word]
-  (when (string? secret-word)
-    (->> (seq secret-word)
-         (mapv str)
-         (zipmap (range (count secret-word))))))
+  {:pre [(string? secret-word)]}
+  (->> (seq secret-word)
+       (mapv str)
+       (zipmap (range (count secret-word)))))
 
 (defn find-letter
   "Check if there is (are) a (some) letter(s) contained in secret-word"
   [letter secret-word]
-  (when (every? string? [letter secret-word])
-    (let [col (string->map secret-word)]
-      (reduce (fn [acc curr]
-                (if (= (get curr 1) letter)
-                  (let [[k v] curr]
-                    (assoc acc k v))
-                  acc)) {} (vec col)))))
+  {:pre [(string? letter) (string? secret-word)]}
+  (let [col (string->map secret-word)]
+    (reduce (fn [acc curr]
+              (if (= (get curr 1) letter)
+                (let [[k v] curr]
+                  (assoc acc k v))
+                acc)) {} (vec col))))
 
 (defn update-correct-guesses
   "Update collection that holds the correct guesses"
@@ -98,5 +98,4 @@
             (update-correct-guesses corrects the-atom)
             (recur (dec attempts)
                    (+ add-error errors))))))))
-
 
