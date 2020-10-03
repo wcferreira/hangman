@@ -8,16 +8,19 @@
 (def max-number-attempts 7)
 
 (defn get-secret-word
+  "Obtain one random word"
   [col]
   (rand-nth col))
 
 (defn read-file
+  "Read data from file"
   [path]
    (try
      (slurp path)
      (catch FileNotFoundException e (println "Invalid path"))))
 
 (defn string->vector
+  "Converts a string to a vector"
   [data]
   (clojure.string/split data #"\n"))
 
