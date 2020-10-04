@@ -46,6 +46,16 @@
     (is (= ["_" "_" "_" "_" "_" "_"] (hg/initialize-correct-guesses "banana")))
     (is (= ["_" "_" "_"] (hg/initialize-correct-guesses "nda")))))
 
+(deftest test-change-letter-case
+  (testing "It should throw ExceptionInfo if anything other than a string is passed in"
+    (is (thrown? ExceptionInfo (hg/change-letter-case 35))))
+
+  (testing "It should return a lower case letter if a letter with upper or lower case is passed in"
+    (is (= "w" (hg/change-letter-case "W")))
+    (is (= "a" (hg/change-letter-case "a")))))
+
+
+
 
 
 
