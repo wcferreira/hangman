@@ -145,3 +145,15 @@
 
   (testing "It should return true if a vector passed in doesn't contain underscores"
     (is (true? (hg/is-word-already-guessed? ["g" "u" "a" "v" "a"])))))
+
+(deftest test-increment-number-of-errors-by
+  (testing "It should return 1 when an empty vector is passed in"
+    (is (= 1 (hg/increment-number-of-errors-by []))))
+
+  (testing "It should return 0 when a not empty vector is passed in"
+    (is (= 0 (hg/increment-number-of-errors-by ["a"]))))
+
+  (testing "It should throw IllegalArgumentException when a parameter different from a sequence is passed in"
+    (is (thrown? IllegalArgumentException (hg/increment-number-of-errors-by 33)))))
+
+
