@@ -23,10 +23,9 @@
   [data]
   (clojure.string/split data #"\n"))
 
-(defn initialize-correct-guesses
+(s/defn initialize-correct-guesses :- [s/Str]
   "Initialize with _ (underscore) a vector that will hold the correct guesses"
-  [secret-word]
-  {:pre [(string? secret-word)]}
+  [secret-word :- s/Str]
   (into [] (repeat (count secret-word) "_")))
 
 (defn change-letter-case
