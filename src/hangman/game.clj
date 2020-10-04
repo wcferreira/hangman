@@ -40,10 +40,9 @@
        (mapv str)
        (zipmap (range (count secret-word)))))
 
-(defn find-letter
+(s/defn find-letter :- {s/Num s/Str}
   "Check if there is (are) a (some) letter(s) contained in secret-word"
-  [letter secret-word]
-  {:pre [(string? letter) (string? secret-word)]}
+  [letter :- s/Str secret-word :- s/Str]
   (let [col (string->map secret-word)]
     (reduce (fn [acc curr]
               (if (= (get curr 1) letter)
