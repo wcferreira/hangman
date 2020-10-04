@@ -54,6 +54,20 @@
     (is (= "w" (hg/change-letter-case "W")))
     (is (= "a" (hg/change-letter-case "a")))))
 
+(deftest test-string->map
+  (testing "It should throw ExceptionInfo if anything other than a string is passed in"
+    (is (thrown? ExceptionInfo (hg/string->map 999))))
+
+  (testing "It should return a hash-map when a string is passed in"
+    (let [word "banana"
+          expected {0 "b" 1 "a" 2 "n" 3 "a" 4 "n" 5 "a"}]
+      (is (= expected (hg/string->map word)))))
+
+  (testing "It should return an empty hash-map when an empty string is passed in"
+    (is (= {} (hg/string->map "")))))
+
+
+
 
 
 
