@@ -64,7 +64,7 @@
   {:pre [(not (empty? data))]}
   (nil? (some #(= % "_") data)))
 
-(defn get-error
+(defn increment-number-of-errors-by
   "Check collection that holds number of correct guesses. If empty returns 1 0 otherwise"
   [col]
   (if (empty? col) 1 0))
@@ -84,7 +84,7 @@
           (println "Guess a letter:")
           (let [guess (change-letter-case (read-line))
                 corrects (find-letter guess secret-word)
-                add-error (get-error corrects)]
+                add-error (increment-number-of-errors-by corrects)]
             (reset! the-atom (update-correct-guesses corrects @the-atom))
             (recur (- attempts add-error)
                    (+ add-error errors))))))))
