@@ -44,7 +44,10 @@
 
   (testing "It should return a vector of underscores if a string is passed in"
     (is (= ["_" "_" "_" "_" "_" "_"] (hg/initialize-correct-guesses "banana")))
-    (is (= ["_" "_" "_"] (hg/initialize-correct-guesses "nda")))))
+    (is (= ["_" "_" "_"] (hg/initialize-correct-guesses "nda"))))
+
+  (testing "It should return an empty vector when an empty string is passed in"
+    (is (= [] (hg/initialize-correct-guesses "")))))
 
 (deftest test-change-letter-case
   (testing "It should throw ExceptionInfo if anything other than a string is passed in"
