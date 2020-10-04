@@ -52,7 +52,10 @@
 
   (testing "It should return a lower case letter if a letter with upper or lower case is passed in"
     (is (= "w" (hg/change-letter-case "W")))
-    (is (= "a" (hg/change-letter-case "a")))))
+    (is (= "a" (hg/change-letter-case "a"))))
+
+  (testing "It should return an empty string when a n empty string is passed in"
+    (is (= "" (hg/change-letter-case "")))))
 
 (deftest test-string->map
   (testing "It should throw ExceptionInfo if anything other than a string is passed in"
