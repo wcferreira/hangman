@@ -28,6 +28,24 @@
       (println )
       (is (string? data)))))
 
+(deftest test-string->vector
+  (testing "It should throw ClassCastException when a number is passed in"
+    (is (thrown? ClassCastException (hg/string->vector 455))))
+
+  (testing "It should return a vector of strings when a string is passed in"
+    (let [data "avocado\nguava\ncherry\npeach\nstrawberry"
+          conv (hg/string->vector data)
+          result (every? #(string? %) conv)]
+      (is (true? result)))))
+
+(deftest test-initialize-correct-guesses
+  (testing "It should throw ExceptionInfo if anything different than a string is passed in"
+    (is (thrown? ExceptionInfo (hg/initialize-correct-guesses 88))))
+
+  (testing "It should return a vector of underscores if a string is passed in"
+    (is (= ["_" "_" "_" "_" "_" "_"] (hg/initialize-correct-guesses "banana")))
+    (is (= ["_" "_" "_"] (hg/initialize-correct-guesses "nda")))))
+
 
 
 
