@@ -71,6 +71,45 @@
   (testing "It should return an empty hash-map when an empty string is passed in"
     (is (= {} (hg/string->map "")))))
 
+(deftest test-find-letter
+  (testing "It should return Exception if the parameters passed in is different of string"
+    (is (thrown? ExceptionInfo (hg/find-letter [] 677)))
+    (is (thrown? ExceptionInfo (hg/find-letter 88 "banana")))
+    (is (thrown? ExceptionInfo (hg/find-letter "a" {}))))
+
+  (testing "It should return hash-map when a letter and a secret word is passed in"
+    (let [letter "a"
+          secret-word "banana"
+          expected {1 "a" 3 "a" 5 "a"}]
+      (is (= expected (hg/find-letter letter secret-word))))
+
+    (let [letter "n"
+          secret-word "banana"
+          expected {2 "n" 4 "n"}]
+      (is (= expected (hg/find-letter letter secret-word))))
+
+    (let [letter "b"
+          secret-word "banana"
+          expected {0 "b"}]
+      (is (= expected (hg/find-letter letter secret-word)))))
+
+  (testing "It should return an empty hash-map if empty string is passed in"
+    (is (= {} (hg/find-letter "" "banana")))
+    (is (= {} (hg/find-letter "a" "")))
+    (is (= {} (hg/find-letter "" "")))))
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
