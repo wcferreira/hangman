@@ -1,16 +1,17 @@
 (ns hangman.game
   (:require [hangman.drawings :as d]
-            [clojure.string :as s]
-            [clojure.string :as str])
+            [clojure.string :as str]
+            [schema.core :as s])
   (:import (java.io FileNotFoundException)))
 
 (def correct-guesses (atom []))
 (def max-number-attempts 7)
 
-(defn get-secret-word
+
+(s/defn get-secret-word :- s/Str
   "Obtain one random word"
-  [col]
-  {:pre [(> 0 (count col))]}
+  [col :- [s/Str]]
+  {:pre [(not (empty? col))]}
   (rand-nth col))
 
 (defn read-file
@@ -18,7 +19,7 @@
   [path]
    (try
      (slurp path)
-     (catch FileNotFoundException e (println "Invalid path"))))
+     (catch FileNotFoundException e (ex-data e))))
 
 (defn string->vector
   "Converts a string to a vector"
@@ -93,4 +94,3 @@
             (reset! the-atom (update-correct-guesses corrects @the-atom))
             (recur (- attempts add-error)
                    (+ add-error errors))))))))
-
