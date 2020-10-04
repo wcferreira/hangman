@@ -1,8 +1,7 @@
 (ns hangman.game
   (:require [hangman.drawings :as d]
             [clojure.string :as str]
-            [schema.core :as s])
-  (:import (java.io FileNotFoundException)))
+            [schema.core :as s]))
 
 (def correct-guesses (atom []))
 (def max-number-attempts 7)
@@ -17,9 +16,7 @@
 (defn read-file
   "Read data from file"
   [path]
-   (try
-     (slurp path)
-     (catch FileNotFoundException e (ex-data e))))
+  (slurp path))
 
 (defn string->vector
   "Converts a string to a vector"
