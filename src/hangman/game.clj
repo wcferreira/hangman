@@ -58,10 +58,10 @@
             (let [[k v] curr]
               (assoc acc k v))) data (vec guesses)))
 
-(defn is-word-already-guessed?
+(s/defn is-word-already-guessed? :- s/Bool
   "Check if the secret word was already guessed"
-  [data]
-  {:pre [(> (count data) 0)]}
+  [data :- [s/Str]]
+  {:pre [(not (empty? data))]}
   (nil? (some #(= % "_") data)))
 
 (defn get-error
