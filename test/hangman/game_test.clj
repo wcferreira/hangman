@@ -25,7 +25,6 @@
 
   (testing "It should return a string when a valid file path is passed in"
     (let [data (hg/read-file "resources/fruits.txt")]
-      (println )
       (is (string? data)))))
 
 (deftest test-string->vector
