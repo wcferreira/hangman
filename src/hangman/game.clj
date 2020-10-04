@@ -33,10 +33,9 @@
   [guess :- s/Str]
   (str/lower-case guess))
 
-(defn string->map
+(s/defn string->map :- {s/Num s/Str}
   "Convert a string into a map"
-  [secret-word]
-  {:pre [(string? secret-word)]}
+  [secret-word :- s/Str]
   (->> (seq secret-word)
        (mapv str)
        (zipmap (range (count secret-word)))))
