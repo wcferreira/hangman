@@ -72,7 +72,7 @@
     (is (= {} (hg/string->map "")))))
 
 (deftest test-find-letter
-  (testing "It should return Exception if the parameters passed in is different of string"
+  (testing "It should return ExceptionInfo if the parameters passed in is different of string"
     (is (thrown? ExceptionInfo (hg/find-letter [] 677)))
     (is (thrown? ExceptionInfo (hg/find-letter 88 "banana")))
     (is (thrown? ExceptionInfo (hg/find-letter "a" {}))))
@@ -125,24 +125,23 @@
           expected ["a" "p" "p" "l" "e"]]
       (is (= expected (hg/update-correct-guesses guesses data))))))
 
+(deftest test-is-word-already-guessed?
+  (testing "It should throw ExceptionInfo if anything different of a vector of strings is passed in"
+    (is (thrown? ExceptionInfo (hg/is-word-already-guessed? 654))))
 
+  (testing "It should throw AssertionError if an empty vector is passed in"
+    (is (thrown? AssertionError (hg/is-word-already-guessed? []))))
 
+  (testing "It should return false if a vector passed in contains at least 1 underscore"
+    (let [secret-word "guava"
+          data (hg/initialize-correct-guesses secret-word)]
+      (is (false? (hg/is-word-already-guessed? data))))
 
+    (let [data ["_" "_" "a" "_" "a"]]
+      (is (false? (hg/is-word-already-guessed? data))))
 
+    (let [data ["g" "u" "a" "_" "a"]]
+      (is (false? (hg/is-word-already-guessed? data)))))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  (testing "It should return true if a vector passed in doesn't contain underscores"
+    (is (true? (hg/is-word-already-guessed? ["g" "u" "a" "v" "a"])))))
