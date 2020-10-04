@@ -98,6 +98,33 @@
     (is (= {} (hg/find-letter "a" "")))
     (is (= {} (hg/find-letter "" "")))))
 
+(deftest test-update-correct-guesses
+  (testing "It should throw AssertionError when parameters are different than a hash-map and a vector respectively"
+    (is (thrown? AssertionError (hg/update-correct-guesses 785 "")))
+    (is (thrown? AssertionError (hg/update-correct-guesses {} []))))
+
+  (testing "It should return a vector with the correct guesses"
+    (let [secret-word "apple"
+          data (hg/initialize-correct-guesses secret-word)
+          guesses {1 "p" 2 "p"}
+          expected ["_" "p" "p" "_" "_"]]
+      (is (= expected (hg/update-correct-guesses guesses data))))
+
+    (let [data ["_" "p" "p" "_" "_"]
+          guesses {0 "a"}
+          expected ["a" "p" "p" "_" "_"]]
+      (is (= expected (hg/update-correct-guesses guesses data))))
+
+    (let [data ["a" "p" "p" "_" "_"]
+          guesses {3 "l"}
+          expected ["a" "p" "p" "l" "_"]]
+      (is (= expected (hg/update-correct-guesses guesses data))))
+
+    (let [data ["a" "p" "p" "l" "_"]
+          guesses {4 "e"}
+          expected ["a" "p" "p" "l" "e"]]
+      (is (= expected (hg/update-correct-guesses guesses data))))))
+
 
 
 
