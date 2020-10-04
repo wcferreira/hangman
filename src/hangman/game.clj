@@ -28,9 +28,9 @@
   [secret-word :- s/Str]
   (into [] (repeat (count secret-word) "_")))
 
-(defn change-letter-case
+(s/defn change-letter-case :- s/Str
   "Change letter case"
-  [guess]
+  [guess :- s/Str]
   (str/lower-case guess))
 
 (defn string->map
