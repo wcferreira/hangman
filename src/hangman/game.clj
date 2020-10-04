@@ -53,7 +53,7 @@
 (defn update-correct-guesses
   "Update collection that holds the correct guesses"
   [guesses data]
-  {:pre [(map? guesses) (and (vector? data) (> (count data) 0))]}
+  {:pre [(map? guesses) (and (vector? data) (not (empty? data)))]}
   (reduce (fn [acc curr]
             (let [[k v] curr]
               (assoc acc k v))) data (vec guesses)))
