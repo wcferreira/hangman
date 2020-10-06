@@ -135,9 +135,9 @@
               "     \\_         _/        \n"
               "       \\_______/          \n"]))
 
-(def final-message-type {false (fn [secret-word] (draw-loser-message secret-word))
-                         true  (fn [secret-word] (draw-winner-message secret-word))})
 
 (defn display-final-message
   [key secret-word]
-  ((get (find final-message-type key) 1) secret-word))
+  (let [final-message-type {false (fn [secret-word] (draw-loser-message secret-word))
+                            true  (fn [secret-word] (draw-winner-message secret-word))}]
+    ((get (find final-message-type key) 1) secret-word)))
