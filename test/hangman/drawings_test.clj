@@ -18,3 +18,14 @@
                       " |            \n"
                       "_|___         \n")]
     (is (= expected (hd/draw-head)))))
+
+(deftest test-draw-right-arm
+  (let [expected (str "  _______     \n"
+                      " |/      |    \n"
+                      " |      (_)   \n"
+                      " |      \\    \n"
+                      " |            \n"
+                      " |            \n"
+                      " |            \n"
+                      "_|___         \n")]
+    (is (= expected (hd/draw-right-arm)))))
