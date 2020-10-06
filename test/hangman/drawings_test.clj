@@ -120,3 +120,17 @@
 
   (testing "It should return head, right arm, chest, left arm, thorax, right leg and left leg when 7 is passed in"
     (is (= (hd/draw-left-leg) (hd/draw-hangman 7)))))
+
+(deftest test-draw-winner-message
+  (let [expected (str "Congratulations, you won!\n"
+                      "       ___________      \n"
+                      "      '._==_==_=_.'     \n"
+                      "      .-\\\\:      /-.  \n"
+                      "     | (|:.     |) |    \n"
+                      "      '-|:.     |-'     \n"
+                      "        \\\\::.    /    \n"
+                      "         '::. .'        \n"
+                      "           ) (          \n"
+                      "         _.' '._        \n"
+                      "        '-------'       \n")]
+    (is (= expected (hd/draw-winner-message "banana")))))
