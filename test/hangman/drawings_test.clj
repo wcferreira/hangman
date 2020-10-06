@@ -62,3 +62,14 @@
                       " |            \n"
                       "_|___         \n")]
     (is (= expected (hd/draw-thorax)))))
+
+(deftest test-draw-right-leg
+  (let [expected (str "  _______     \n"
+                      " |/      |    \n"
+                      " |      (_)   \n"
+                      " |      \\|/  \n"
+                      " |       |    \n"
+                      " |      /     \n"
+                      " |            \n"
+                      "_|___         \n")]
+    (is (= expected (hd/draw-right-leg)))))
