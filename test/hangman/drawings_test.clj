@@ -156,3 +156,17 @@
                  "     \\_         _/        \n"
                  "       \\_______/          \n")]
     (is (= expected (hd/draw-loser-message secret-word)))))
+
+(deftest test-display-final-message
+  (testing "It should throw ExceptionInfo when parameters different from boolean and string respectively are passed in"
+    (is (thrown? ExceptionInfo (hd/display-final-message [] 355)))
+    (is (thrown? ExceptionInfo (hd/display-final-message false 33.5M)))
+    (is (thrown? ExceptionInfo (hd/display-final-message {} "guava"))))
+
+  (testing "It should return the loser message when false and the secret word are passed in"
+    (let [secret-word "banana"]
+      (is (= (hd/draw-loser-message secret-word) (hd/display-final-message false secret-word)))))
+
+  (testing "It should return the winner message when true and the secret word are passed in"
+    (let [secret-word "peach"]
+      (is (= (hd/draw-winner-message secret-word) (hd/display-final-message true secret-word))))))
