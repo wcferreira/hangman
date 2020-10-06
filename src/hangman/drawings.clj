@@ -86,19 +86,19 @@
               "_|___         \n"]))
 
 
-(def error-types {1 (fn [] (draw-head))
-                  2 (fn [] (draw-right-arm))
-                  3 (fn [] (draw-chest))
-                  4 (fn [] (draw-left-arm))
-                  5 (fn [] (draw-thorax))
-                  6 (fn [] (draw-right-leg))
-                  7 (fn [] (draw-left-leg))})
-
 (defn draw-hangman
   "Draw hangman according to the number of errors."
   [errors]
-  (when (and (> errors 0) (<= errors (count error-types)))
-    ((get (find error-types errors) 1))))
+  (let [error-types {1 (fn [] (draw-head))
+                     2 (fn [] (draw-right-arm))
+                     3 (fn [] (draw-chest))
+                     4 (fn [] (draw-left-arm))
+                     5 (fn [] (draw-thorax))
+                     6 (fn [] (draw-right-leg))
+                     7 (fn [] (draw-left-leg))}
+        max-number-errors (count error-types)]
+    (when (and (> errors 0) (<= errors max-number-errors))
+      ((get (find error-types errors) 1)))))
 
 (defn draw-winner-message
   [_]
