@@ -134,3 +134,25 @@
                       "         _.' '._        \n"
                       "        '-------'       \n")]
     (is (= expected (hd/draw-winner-message "banana")))))
+
+(deftest test-draw-loser-message
+  (let [secret-word "guava"
+        expected (str "Game Over!\n"
+                 (str "The secret word was:" secret-word) "\n"
+                 "    _______________        \n"
+                 "   /               \\\\    \n"
+                 "  /                 \\\\   \n"
+                 "//                   \\/\\ \n"
+                 "\\|   XXXX     XXXX   | /  \n"
+                 " |   XXXX     XXXX   |/    \n"
+                 " |   XXX       XXX   |     \n"
+                 " |                   |     \n"
+                 " \\__      XXX      __/    \n"
+                 "   |\\     XXX     /|      \n"
+                 "   | |           | |       \n"
+                 "   | I I I I I I I |       \n"
+                 "   |  I I I I I I  |       \n"
+                 "   \\_             _/      \n"
+                 "     \\_         _/        \n"
+                 "       \\_______/          \n")]
+    (is (= expected (hd/draw-loser-message secret-word)))))
