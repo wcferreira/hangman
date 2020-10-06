@@ -137,8 +137,8 @@
               "       \\_______/          \n"]))
 
 
-(defn display-final-message
-  [key secret-word]
+(s/defn display-final-message :- s/Str
+  [key :- s/Bool secret-word :- s/Str]
   (let [final-message-type {false (fn [secret-word] (draw-loser-message secret-word))
                             true  (fn [secret-word] (draw-winner-message secret-word))}]
     ((get (find final-message-type key) 1) secret-word)))
