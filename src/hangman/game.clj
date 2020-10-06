@@ -4,8 +4,6 @@
             [schema.core :as s]))
 
 (def correct-guesses (atom []))
-(def max-number-attempts 7)
-
 
 (s/defn get-secret-word :- s/Str
   "Obtain one random word"
@@ -72,7 +70,7 @@
 (defn play
   "Start the game"
   [secret-word the-atom]
-  (loop [attempts max-number-attempts errors 0]
+  (loop [attempts 7 errors 0]
     (println @the-atom)
     (println (d/draw-hangman errors))
     (let [status (is-word-already-guessed? @the-atom)]
