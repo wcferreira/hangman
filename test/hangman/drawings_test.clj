@@ -8,3 +8,13 @@
                       "=========================================\n")]
     (is (= expected (hd/display-welcome-message)))))
 
+(deftest test-draw-head
+  (let [expected (str "  _______     \n"
+                      " |/      |    \n"
+                      " |      (_)   \n"
+                      " |            \n"
+                      " |            \n"
+                      " |            \n"
+                      " |            \n"
+                      "_|___         \n")]
+    (is (= expected (hd/draw-head)))))
