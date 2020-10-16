@@ -12,4 +12,5 @@
         word (hg/get-secret-word words)
         secret-word (s/lower-case word)]
     (println (hd/display-welcome-message))
-  (hg/play secret-word)))
+  (hg/play secret-word (hg/->GameProd ))))
+
