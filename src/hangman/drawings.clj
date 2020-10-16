@@ -8,8 +8,7 @@
               "====== Welcome to the Hangman Game ======\n"
               "=========================================\n"]))
 
-(defn draw-head
-  []
+(def draw-head
   (apply str ["  _______     \n"
               " |/      |    \n"
               " |      (_)   \n"
@@ -19,8 +18,7 @@
               " |            \n"
               "_|___         \n"]))
 
-(defn draw-right-arm
-  []
+(def draw-right-arm
   (apply str ["  _______     \n"
               " |/      |    \n"
               " |      (_)   \n"
@@ -30,8 +28,7 @@
               " |            \n"
               "_|___         \n"]))
 
-(defn draw-chest
-  []
+(def draw-chest
   (apply str ["  _______     \n"
               " |/      |    \n"
               " |      (_)   \n"
@@ -42,8 +39,7 @@
               "_|___         \n"]))
 
 
-(defn draw-left-arm
-  []
+(def draw-left-arm
   (apply str ["  _______     \n"
               " |/      |    \n"
               " |      (_)   \n"
@@ -53,8 +49,7 @@
               " |            \n"
               "_|___         \n"]))
 
-(defn draw-thorax
-  []
+(def draw-thorax
   (apply str ["  _______     \n"
               " |/      |    \n"
               " |      (_)   \n"
@@ -64,8 +59,7 @@
               " |            \n"
               "_|___         \n"]))
 
-(defn draw-right-leg
-  []
+(def draw-right-leg
   (apply str ["  _______     \n"
               " |/      |    \n"
               " |      (_)   \n"
@@ -75,8 +69,7 @@
               " |            \n"
               "_|___         \n"]))
 
-(defn draw-left-leg
-  []
+(def draw-left-leg
   (apply str ["  _______     \n"
               " |/      |    \n"
               " |      (_)   \n"
@@ -90,16 +83,18 @@
 (s/defn draw-hangman :- s/Str
   "Draw hangman according to the number of errors."
   [errors :- s/Int]
-  {:pre [(and (> errors 0) (<= errors 7))]}
+  (println "errors:" errors)
+  {:pre [(and (>= errors 1) (<= errors 7))]}
 
-  (let [error-types {1 (fn [] (draw-head))
-                     2 (fn [] (draw-right-arm))
-                     3 (fn [] (draw-chest))
-                     4 (fn [] (draw-left-arm))
-                     5 (fn [] (draw-thorax))
-                     6 (fn [] (draw-right-leg))
-                     7 (fn [] (draw-left-leg))}]
-    ((get (find error-types errors) 1))))
+  (let [error-types {0  ""
+                     1 draw-head
+                     2 draw-right-arm
+                     3 draw-chest
+                     4 draw-left-arm
+                     5 draw-thorax
+                     6 draw-right-leg
+                     7 draw-left-leg}]
+    (get error-types errors)))
 
 (defn draw-winner-message
   [_]

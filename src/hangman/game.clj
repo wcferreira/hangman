@@ -3,8 +3,6 @@
             [clojure.string :as str]
             [schema.core :as s]))
 
-(def correct-guesses (atom []))
-
 (s/defn get-secret-word :- s/Str
   "Obtain one random word"
   [col :- [s/Str]]
@@ -69,11 +67,11 @@
 
 (defn play
   "Start the game"
-  [secret-word the-atom]
-  (loop [attempts 7 errors 0]
-    (println @the-atom)
+  [secret-word]
+  (loop [attempts 7 errors 0 result (initialize-correct-guesses secret-word)]
+    (println result)
     (println (d/draw-hangman errors))
-    (let [status (is-word-already-guessed? @the-atom)]
+    (let [status (is-word-already-guessed? result)]
       (if (or (= attempts 0) status)
         (do
           (println (d/display-final-message status secret-word))
@@ -83,6 +81,6 @@
           (let [guess (change-letter-case (read-line))
                 corrects (find-letter guess secret-word)
                 add-error (increment-number-of-errors-by corrects)]
-            (reset! the-atom (update-correct-guesses corrects @the-atom))
             (recur (- attempts add-error)
-                   (+ add-error errors))))))))
+                   (+ add-error errors)
+                   (update-correct-guesses corrects result))))))))
