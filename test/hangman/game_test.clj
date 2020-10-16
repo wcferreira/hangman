@@ -1,7 +1,8 @@
 (ns hangman.game-test
   (:require [clojure.test :refer :all]
             [hangman.game :as hg]
-            [schema.core :as s])
+            [schema.core :as s]
+            [hangman.drawings :as hd])
   (:import (clojure.lang ExceptionInfo)
            (java.io FileNotFoundException)))
 
@@ -156,4 +157,36 @@
   (testing "It should throw IllegalArgumentException when a parameter different from a sequence is passed in"
     (is (thrown? IllegalArgumentException (hg/increment-number-of-errors-by 33)))))
 
-
+(deftest test-play
+  (testing "Playing the game as a dumb"
+    (let [game (hg/map->GameTest {:ins (atom (vec (repeat 7 "f")))
+                                  :outs (atom [])})
+          secret-word "banana"
+          _ (hg/play secret-word game)
+          partial-result (hg/initialize-correct-guesses secret-word)
+          guess "Guess a letter:"]
+      (is (= [partial-result
+              ""
+              guess
+              partial-result
+              hd/draw-head
+              guess
+              partial-result
+              hd/draw-right-arm
+              guess
+              partial-result
+              hd/draw-chest
+              guess
+              partial-result
+              hd/draw-left-arm
+              guess
+              partial-result
+              hd/draw-thorax
+              guess
+              partial-result
+              hd/draw-right-leg
+              guess
+              partial-result
+              hd/draw-left-leg
+              (hd/draw-loser-message secret-word)]
+             (deref (:outs game)))))))

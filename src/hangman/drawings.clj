@@ -83,10 +83,9 @@
 (s/defn draw-hangman :- s/Str
   "Draw hangman according to the number of errors."
   [errors :- s/Int]
-  (println "errors:" errors)
-  {:pre [(and (>= errors 1) (<= errors 7))]}
+  {:pre [(and (>= errors 0) (<= errors 7))]}
 
-  (let [error-types {0  ""
+  (let [error-types {0 ""
                      1 draw-head
                      2 draw-right-arm
                      3 draw-chest

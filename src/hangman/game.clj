@@ -65,20 +65,41 @@
   [col]
   (if (empty? col) 1 0))
 
+(defprotocol GameProtocol
+  (input [this] "Asks for user input")
+  (output [this text] "Shows text to the user"))
+
+(defrecord GameProd []
+  GameProtocol
+  (input [this]
+    (read-line))
+  (output [this text]
+    (println text)))
+
+(defrecord GameTest [ins outs]
+  GameProtocol
+  (input [this]
+    (let [out (last @ins)]
+      (swap! ins pop)
+      out))
+  (output [this text]
+    (println text)
+    (swap! outs conj text)))
+
 (defn play
   "Start the game"
-  [secret-word]
+  [secret-word game]
   (loop [attempts 7 errors 0 result (initialize-correct-guesses secret-word)]
-    (println result)
-    (println (d/draw-hangman errors))
+    (output game result)
+    (output game (d/draw-hangman errors))
     (let [status (is-word-already-guessed? result)]
       (if (or (= attempts 0) status)
         (do
-          (println (d/display-final-message status secret-word))
+          (output game (d/display-final-message status secret-word))
           status)
         (do
-          (println "Guess a letter:")
-          (let [guess (change-letter-case (read-line))
+          (output game "Guess a letter:")
+          (let [guess (change-letter-case (input game))
                 corrects (find-letter guess secret-word)
                 add-error (increment-number-of-errors-by corrects)]
             (recur (- attempts add-error)
